@@ -1,1 +1,1 @@
-export { Aside } from './ArticleParamsForm';
+export { Aside } from './Aside';

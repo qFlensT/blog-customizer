@@ -1,4 +1,4 @@
-import styles from './ArticleParamsForm.module.scss';
+import styles from './Aside.module.scss';
 import { ReactNode, useEffect, useRef } from 'react';
 import clsx from 'clsx';
 

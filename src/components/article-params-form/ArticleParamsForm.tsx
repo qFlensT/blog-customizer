@@ -14,8 +14,8 @@ export const ArticleParamsForm = ({
 }: ArticleParamsFormProps) => {
 	return (
 		<form className={styles.form} onSubmit={onSubmit}>
+			{children}
 			<div className={styles.bottomContainer}>
-				{children}
 				<Button title='Сбросить' type='reset' />
 				<Button title='Применить' type='submit' />
 			</div>
