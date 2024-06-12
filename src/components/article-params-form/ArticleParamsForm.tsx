@@ -5,6 +5,7 @@ import { FormEvent, ReactNode, useState } from 'react';
 import { Text } from '../text';
 import { Select } from '../select';
 import {
+	ArticleStateType,
 	OptionType,
 	backgroundColors,
 	contentWidthArr,
@@ -18,8 +19,8 @@ import { Separator } from '../separator';
 
 export type ArticleParamsFormProps = {
 	children?: ReactNode;
-	onSubmit?: (value: typeof defaultArticleState) => void;
-	onReset?: (value: typeof defaultArticleState) => void;
+	onSubmit?: (value: ArticleStateType) => void;
+	onReset?: (value: ArticleStateType) => void;
 };
 
 export const ArticleParamsForm = ({
@@ -27,7 +28,7 @@ export const ArticleParamsForm = ({
 	onReset,
 }: ArticleParamsFormProps) => {
 	const [articleParams, setArticleParams] =
-		useState<typeof defaultArticleState>(defaultArticleState);
+		useState<ArticleStateType>(defaultArticleState);
 
 	const handleSetParams = (
 		keyName: keyof typeof articleParams,
