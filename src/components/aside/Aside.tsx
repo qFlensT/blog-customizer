@@ -1,41 +1,36 @@
 import styles from './Aside.module.scss';
-import { ReactNode, useEffect, useRef } from 'react';
+import { ReactNode, useRef, useState } from 'react';
 import clsx from 'clsx';
+import { useOutsideClickClose } from 'src/common/hooks/useOutsideClickClose';
+import { ArrowButton } from '../arrow-button';
 
 export type AsideProps = {
-	children?: Partial<{
-		openButton: ReactNode;
-		content: ReactNode;
-	}>;
-	open?: boolean;
-	onOutsideClick?: () => void;
+	children?: ReactNode;
 };
 
-export const Aside = ({
-	children,
-	open = false,
-	onOutsideClick,
-}: AsideProps) => {
+export const Aside = ({ children }: AsideProps) => {
+	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const asideRef = useRef<HTMLElement | null>(null);
 
-	useEffect(() => {
-		const listener = (e: MouseEvent) => {
-			if (!open || !asideRef.current) return;
-			if (asideRef.current.contains(e.target as Node)) return;
-			onOutsideClick?.();
-		};
-
-		document.addEventListener('click', listener);
-		return () => document.removeEventListener('click', listener);
-	}, [open]);
+	useOutsideClickClose({
+		isOpen: isOpen,
+		rootRef: asideRef,
+		onClose: () => setIsOpen(false),
+	});
 
 	return (
 		<>
-			{children?.openButton}
+			<ArrowButton
+				onClick={(e) => {
+					e.stopPropagation();
+					setIsOpen((prev) => !prev);
+				}}
+				open={isOpen}
+			/>
 			<aside
 				ref={asideRef}
-				className={clsx(styles.container, open && styles.containerOpen)}>
-				{children?.content}
+				className={clsx(styles.container, isOpen && styles.containerOpen)}>
+				{children}
 			</aside>
 		</>
 	);
